@@ -3,9 +3,12 @@ import { useRef } from "react";
 import Container from "../components/controllers/Container";
 import FieldController from "../components/controllers/FieldController";
 import CNABField from "../components/controllers/CNABField";
+import EditableHTMLDisplayer from "../components/controllers/EditableHTMLDisplayer";
 
 export default function Index()
 {
+	const inputRef = useRef();
+
 	const inputHeaderRef = useRef();
 	const inputContentRef = useRef();
 	const inputTrailerRef = useRef();
@@ -32,6 +35,10 @@ export default function Index()
 					title="Campos - Trailer"
 					field={CNABField}
 					innerRef={inputTrailerRef}
+				/>
+
+				<EditableHTMLDisplayer
+					innerRef={inputRef}
 				/>
 			</Container>
 		</>

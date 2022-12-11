@@ -40,3 +40,33 @@
 	color: #839496;
 	font-size: 0.75rem;
 }
+
+.container .overlay {
+	display: grid;
+	grid-template-columns: 1fr;
+}
+
+.container div .displayer,
+.container textarea.editable {
+	background: transparent;
+	border-color: transparent;
+	line-height: 140%;
+	font-family: monospace;
+	font-size: larger;
+	outline: 0;
+	overflow: auto;
+	padding: 10px;
+	white-space: nowrap;
+	grid-row-start: 1;
+	grid-column-start: 1;
+
+}
+.container div .displayer {
+	color: #D6DEE1;
+}
+.container textarea.editable {
+	caret-color: white;
+	color: transparent;
+	margin: 0;
+	width: 98.2%;
+}

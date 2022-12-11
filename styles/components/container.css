@@ -1,0 +1,42 @@
+.container {
+	background-color: rgba(0, 0, 0, .2);
+	border-color: rgba(0, 0, 0, .1);
+	border-radius: 7px;
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	padding: 5px;
+	width: 95%;
+}
+
+.container.sub-container {
+	margin-top: 10px;
+	width: auto;
+}
+
+.container.medium-sub-container {
+	margin-left: 0;
+	margin-top: 10px;
+	width: 50%;
+}
+
+.container label {
+	display: block;
+}
+
+.container .title,
+.container .description {
+	font-family: "Consolas", "Courier", "Courier New";
+	line-height: 1rem;
+}
+
+.container .title {
+	color: #FFFFFF;
+	font-size: 1rem;
+}
+
+.container .description {
+	color: #839496;
+	font-size: 0.75rem;
+}

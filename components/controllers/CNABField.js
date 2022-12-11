@@ -1,10 +1,13 @@
 import { useRef } from "react";
 
 import CustomTextArea from "../elements/CustomTextArea";
+import CustomSelect from "../elements/CustomSelect";
+
 
 export default function CNABField(props)
 {
 	const nameRef = useRef();
+	const typeRef = useRef();
 	const valueRef = useRef();
 
 	return (
@@ -16,10 +19,10 @@ export default function CNABField(props)
 				placeholder="Descrição | Tipo | Tamanho"
 				width="120%"
 			/>
-			<select>
-				<option>str</option>
-				<option>int</option>
-			</select>
+			<CustomSelect
+				innerRef={typeRef}
+				options="String,Number"
+			/>
 			<input type="number" />
 			<CustomTextArea
 				innerRef={valueRef}

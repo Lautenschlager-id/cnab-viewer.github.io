@@ -1,8 +1,8 @@
 import { useRef } from "react";
 
-import Container from "../components/Container";
-import FieldController from "../components/FieldController";
-import CNABField from "../components/CNABField";
+import Container from "../components/controllers/Container";
+import FieldController from "../components/controllers/FieldController";
+import CNABField from "../components/controllers/CNABField";
 
 export default function Index()
 {

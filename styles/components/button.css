@@ -1,0 +1,21 @@
+.container button {
+	background-color: #7289DA;
+	border-radius: 3px;
+	border-style: none;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: .9em;
+	padding: 10px;
+	transition: .4s;
+}
+
+.container button:hover {
+	background-color: #5970C1;
+}
+
+.container button[type="action"] {
+	padding: 0;
+	height: 25px;
+	width: 25px;
+}

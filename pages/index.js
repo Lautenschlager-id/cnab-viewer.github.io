@@ -2,6 +2,7 @@ import { useRef } from "react";
 
 import Container from "../components/Container";
 import FieldController from "../components/FieldController";
+import CNABField from "../components/CNABField";
 
 export default function Index()
 {
@@ -17,19 +18,19 @@ export default function Index()
 			>
 				<FieldController
 					title="Campos - Header"
-					field={Container} // Mock
+					field={CNABField}
 					innerRef={inputHeaderRef}
 				/>
 
 				<FieldController
 					title="Campos - Conteúdo"
-					field={Container} // Mock
+					field={CNABField}
 					innerRef={inputContentRef}
 				/>
 
 				<FieldController
 					title="Campos - Trailer"
-					field={Container} // Mock
+					field={CNABField}
 					innerRef={inputTrailerRef}
 				/>
 			</Container>

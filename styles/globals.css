@@ -4,3 +4,7 @@ body {
 	background: #36393F;
 	font-family: "Roboto";
 }
+
+.flex {
+	display: flex;
+}

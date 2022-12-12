@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
 
-import Container from "./Container";
+import Container from "../Container";
+import FileInput from "./FileInput";
 
-function getBaseComponent(props, index = 1, position = 1)
+function getBaseComponent(props, insertedValues, index = 1, position = 1)
 {
 	return {
 		key: index,
 		srcHandler: props.srcHandler,
 		fieldId: `${props.fieldPrefix}-${position}`,
 		position: `#${position}`,
+		...insertedValues
 	};
 }
 
-function addChildren(setChildren, props)
+function addChildren(setChildren, props, insertedValues)
 {
 	setChildren((previousChildren) =>
 		[
 			...previousChildren,
-			getBaseComponent(props,
+			getBaseComponent(props, insertedValues,
 				previousChildren[previousChildren.length - 1].key + 1,
 				previousChildren.length + 1)
 		]
@@ -39,9 +41,9 @@ function remChildren(setChildren)
 	setChildren(remChildrenCbk);
 }
 
-function clearChildren(setChildren, props)
+function clearChildren(setChildren, props, insertedValues)
 {
-	setChildren([ getBaseComponent(props, Date.now()) ]);
+	setChildren([ getBaseComponent(props, insertedValues, Date.now()) ]);
 }
 
 export default function FieldController(props)
@@ -54,6 +56,14 @@ export default function FieldController(props)
 			class="medium-sub-container"
 			title={props.title}
 		>
+			<FileInput
+				title={props.title.split(" - ").pop()}
+				onFileDataValidated={
+					(data) => props.fileInputData.
+						onFileDataValidated(data, props, setChildren, clearChildren, addChildren)
+				}
+				fileInputData={props.fileInputData}
+			/>
 			<div>
 				<button
 					type="action"
@@ -67,6 +77,14 @@ export default function FieldController(props)
 					onClick={() => remChildren(setChildren)}
 				>
 					-
+				</button>
+				&nbsp;
+				<button
+					type="action"
+					className="red"
+					onClick={() => clearChildren(setChildren, props)}
+				>
+					x
 				</button>
 			</div>
 
@@ -83,4 +101,3 @@ export default function FieldController(props)
 		</Container>
 	);
 }
-

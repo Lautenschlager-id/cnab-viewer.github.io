@@ -1,3 +1,5 @@
+import FileInput from "./FileInput";
+
 function expandTextAreaHeight(element)
 {
 	element.style.height = "auto";
@@ -31,12 +33,42 @@ function processInput(props, element)
 	props.srcHandler(null, element.value);
 }
 
+async function onFileUploaded(fiEvent, cbk)
+{
+	const uploadedFile = fiEvent.target.files[0] || {};
+	cbk(await uploadedFile.text());
+}
+
+function onFileDataValidated(data, props)
+{
+	const textarea = props.innerRef.current.nextElementSibling;
+	textarea.value = data;
+	processInput(props, { target: textarea });
+}
+
+const FileInputData = {
+	onFileUploaded: onFileUploaded,
+	onFileDataValidated: onFileDataValidated,
+	fileType: ".txt,.rem,.ret",
+	title: "Ou",
+	description: "Carregue um arquivo CNAB",
+};
+
 export default function EditableHTMLDisplayer(props)
 {
 	return (
 		<>
+			<p align="right">
+				<button
+					type="action"
+					className="red abs bottom-corner top-left"
+					onClick={() => onFileDataValidated("", props)}
+				>
+					x
+				</button>
+			</p>
 			<div id="tooltip" className="tooltip tooltip-unhover" />
-			<div className="container sub-container overlay">
+			<div className="container sub-container overlay top-right-corner">
 				<div
 					ref={props.innerRef}
 					className="displayer"
@@ -50,6 +82,10 @@ export default function EditableHTMLDisplayer(props)
 					placeholder="Cole seu CNAB here"
 				/>
 			</div>
+			<FileInput
+				fileInputData={FileInputData}
+				onFileDataValidated={(data) => onFileDataValidated(data, props)}
+			/>
 		</>
 	);
 }

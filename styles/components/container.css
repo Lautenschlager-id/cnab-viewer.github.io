@@ -70,3 +70,17 @@
 	margin: 0;
 	width: 98.2%;
 }
+
+.container.sub-container-no-margin {
+	margin-top: -10px;
+	width: auto;
+}
+
+.container .tiny-info {
+	color: white;
+	font-family: monospace;
+	font-size: 12px;
+	margin: auto;
+	padding-right: 2px;
+	width: 90px;
+}

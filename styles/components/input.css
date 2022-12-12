@@ -31,3 +31,7 @@
 .container .quantity button.down {
 	border-radius: 0 0 4px 0;
 }
+
+.container input[type=file] {
+	color: white;
+}

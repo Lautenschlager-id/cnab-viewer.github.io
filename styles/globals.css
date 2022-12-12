@@ -53,3 +53,17 @@ body {
 	animation-duration: 3s;
 	animation-name: shine;
 }
+
+.invalid-message {
+	color: #DA7272;
+	font-size: 11px;
+}
+
+.bottom-corner {
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
+.top-right-corner {
+	border-top-right-radius: 0 !important;
+}

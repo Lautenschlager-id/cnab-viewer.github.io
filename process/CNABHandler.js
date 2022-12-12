@@ -310,6 +310,32 @@ class CNABHandler
 
 		this.bindEventsToAllHighlights();
 	}
+
+	formatCSVData(line)
+	{
+		return `${line.name};${line.type};${line.length};${line.value}`;
+	}
+
+	buildCSV(data)
+	{
+		data = data.map(this.formatCSVData);
+		data.unshift("description;type;length;content");
+		return data.join("\n");
+	}
+
+	retrieve()
+	{
+		const {
+			retrievedHeaderData,
+			retrievedContentData,
+			retrievedTrailerData
+		} = this;
+		if (!retrievedHeaderData) return;
+
+		downloadTmpFile("cnab-header.csv", this.buildCSV(retrievedHeaderData));
+		downloadTmpFile("cnab-content.csv", this.buildCSV(retrievedContentData));
+		downloadTmpFile("cnab-trailer.csv", this.buildCSV(retrievedTrailerData));
+	}
 }
 
 export default CNABHandler;

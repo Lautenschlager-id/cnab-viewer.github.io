@@ -1,7 +1,7 @@
 {
   "name": "cnab-viewer",
   "version": "0.1.0",
-  "homepage": "https://lautenschlager-id.github.io/cnab-viewer.github.io"
+  "homepage": "https://lautenschlager-id.github.io/cnab-viewer.github.io",
   "private": false,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build",
+    "deploy" : "gh-pages -d build"
   },
   "dependencies": {
     "next": "12.3.1",

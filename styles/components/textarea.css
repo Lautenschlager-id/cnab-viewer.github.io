@@ -1,0 +1,29 @@
+.container textarea {
+	background-color: #484B52;
+	border-style: none;
+	color: #C5C6C8;
+	margin-top: 5px;
+	margin-right: 5px;
+	outline: 0;
+	overflow: hidden;
+	padding: 5px;
+	resize: none;
+	width: 100%;
+}
+
+.container textarea:invalid, textarea:required:placeholder-shown:not(:focus)
+ {
+	border-color: #F04747;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.container .square {
+	border-radius: 5px 0 0 5px;
+	margin-top: 5px;
+	width: 15px;
+}
+
+.container .square.blue {
+	background-color: #7289DA;
+}

@@ -1,0 +1,37 @@
+.container input[type=number]::-webkit-inner-spin-button,
+.container input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.container input[type=number] {
+	float: left;
+	width: -webkit-fill-available;
+}
+
+.container .quantity {
+	display: grid;
+	height: 0;
+	position: relative;
+	margin-left: -25.5px;
+	margin-top: 6px;
+}
+
+.container .quantity button {
+	font-size: 10px;
+	height: 19px;
+	padding: 0;
+	width: 19px;
+}
+
+.container .quantity button.up {
+	border-radius: 0 4px 0 0;
+}
+
+.container .quantity button.down {
+	border-radius: 0 0 4px 0;
+}
+
+.container input[type=file] {
+	color: white;
+}

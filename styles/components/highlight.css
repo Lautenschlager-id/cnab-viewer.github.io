@@ -1,0 +1,56 @@
+.highlight {
+	display: initial;
+	position: relative;
+}
+
+.highlight:nth-child(even) {
+	background: rgba(0, 122, 204, .6);
+}
+.highlight:nth-child(odd) {
+	background: rgba(165, 73, 184, .6);
+}
+.highlight.tooltip-text {
+	background: rgba(255, 106, 0, .6);
+}
+
+.highlight:hover {
+	cursor: pointer;
+}
+.highlight:nth-child(even):hover {
+	background: rgba(0, 122, 204, 1);
+}
+.highlight:nth-child(odd):hover {
+	background: rgba(165, 73, 184, 1);
+}
+
+.highlight.invalid {
+	background: rgba(200, 10, 10, .6);
+}
+.highlight.invalid:hover {
+	background: rgba(200, 10, 10, 1);
+}
+
+.tooltip {
+	background-color: rgba(0, 0, 0, .85);
+	block-size: fit-content;
+	border-radius: 6px;
+	color: rgba(255, 255, 255, .8);
+	max-width: 50%;
+	padding: 5px;
+	position: absolute;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	z-index: 1;
+}
+
+.tooltip-unhover {
+	opacity: 0;
+	transition: opacity .3s linear, visibility .3s linear;
+	visibility: hidden;
+}
+
+.tooltip-hover {
+	opacity: 1;
+	transition: opacity .5s;
+	visibility: visible;
+}

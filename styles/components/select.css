@@ -1,0 +1,22 @@
+.container select,
+.container input[type="number"] {
+	background-color: #484B52;
+	border-color: #000000;
+	border-radius: 4px;
+	border-width: 1px;
+	color: #DCDDDE;
+	font-size: 1rem;
+	margin-right: 5px;
+	margin-top: 4px;
+	outline-width: 0;
+	padding: 0px 10px;
+	transition-duration: .5s;
+	width: 80%;
+}
+
+.container select:hover,
+.container input[type="number"]:hover {
+	background-color: #36383D;
+	border-radius: 6px;
+	border-width: 2px;
+}

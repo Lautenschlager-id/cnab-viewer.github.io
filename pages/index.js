@@ -5,6 +5,8 @@ import FieldController from "../components/controllers/FieldController";
 import { CNABField, FileInputData } from "../components/controllers/CNABField";
 import EditableHTMLDisplayer from "../components/controllers/EditableHTMLDisplayer";
 
+import Credit from "../components/Credit";
+
 import CNABHandler from "../process/CNABHandler";
 
 export default function Index()
@@ -60,6 +62,7 @@ export default function Index()
 					srcHandler={renderCbk}
 				/>
 			</Container>
+			<Credit />
 		</>
 	)
 }

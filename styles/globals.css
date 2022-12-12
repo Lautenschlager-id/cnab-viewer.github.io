@@ -67,3 +67,16 @@ body {
 .top-right-corner {
 	border-top-right-radius: 0 !important;
 }
+
+.simple-text {
+	color: #AAAAAA;
+	font-family: Verdana;
+}
+
+.small-font {
+	font-size: 80%;
+}
+
+.text-blue {
+	color: #1C96CF;
+}

@@ -36,3 +36,20 @@ body {
 .abs {
 	position: absolute;
 }
+
+@keyframes shine {
+	from {
+		background-color: rgba(255, 255, 153, 1);
+		border-radius: 4px;
+		padding: 10px;
+	}
+
+	to {
+		background-color: rgba(255, 255, 153, 0);
+	}
+}
+
+.shine {
+	animation-duration: 3s;
+	animation-name: shine;
+}

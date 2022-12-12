@@ -14,6 +14,7 @@ export default function CNABField(props)
 	return (
 		<div
 			className="flex"
+			id={props.fieldId}
 		>
 			<CustomTextArea
 				innerRef={nameRef}

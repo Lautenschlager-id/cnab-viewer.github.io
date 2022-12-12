@@ -2,20 +2,24 @@ import { useState, useEffect } from "react";
 
 import Container from "./Container";
 
-function getBaseComponent(props, index = 1)
+function getBaseComponent(props, index = 1, position = 1)
 {
 	return {
 		key: index,
 		srcHandler: props.srcHandler,
+		fieldId: `${props.fieldPrefix}-${position}`,
+		position: `#${position}`,
 	};
 }
 
-function addChildren(setChildren, props, insertedValues)
+function addChildren(setChildren, props)
 {
 	setChildren((previousChildren) =>
 		[
 			...previousChildren,
-			getBaseComponent(props, previousChildren.length + 1)
+			getBaseComponent(props,
+				previousChildren[previousChildren.length - 1].key + 1,
+				previousChildren.length + 1)
 		]
 	);
 }
@@ -33,6 +37,11 @@ function remChildrenCbk(previousChildren)
 function remChildren(setChildren)
 {
 	setChildren(remChildrenCbk);
+}
+
+function clearChildren(setChildren, props)
+{
+	setChildren([ getBaseComponent(props, Date.now()) ]);
 }
 
 export default function FieldController(props)
@@ -65,7 +74,7 @@ export default function FieldController(props)
 				{children.map((childProps, index) => {
 					return (
 						<props.field
-							key={index}
+							key={index} // tmp to avoid build error
 							{...childProps}
 						/>
 					);
@@ -74,3 +83,4 @@ export default function FieldController(props)
 		</Container>
 	);
 }
+

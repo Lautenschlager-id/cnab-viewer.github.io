@@ -5,8 +5,6 @@ import {
 
 function onLeftClick(element)
 {
-	element = element.target;
-
 	// Copy highlighted content (chunk)
 	navigator.clipboard.writeText(element.innerText);
 
@@ -14,6 +12,30 @@ function onLeftClick(element)
 		window.getSelection().removeAllRanges();
 	else if (document.selection)
 		document.selection.empty();
+}
+
+function onDoubleClick(element)
+{
+	// See highlighted field
+	const field = document.getElementById(element.id.substr(5));
+	field.classList.add("shine");
+	field.scrollIntoView();
+	// field.classList.remove("shine"); -> didn't seem to work
+	setTimeout(field.classList.remove.bind(field.classList), 3000, "shine");
+}
+
+function onClick(event)
+{
+	const {
+		detail: clickCount,
+		which: mouseButton
+	} = event;
+
+	const element = event.target;
+	if (mouseButton == 1 && clickCount == 2)
+		return onDoubleClick(element);
+	else if (mouseButton == 3)
+		return onLeftClick(element);
 }
 
 function onMouseEnter(element, content)
@@ -126,7 +148,8 @@ class CNABHandler
 
 		const colorClass = !chunkValidation.isValid ? "invalid" : "";
 
-		return `<div class="highlight ${colorClass}" >${highlight}<div>${tooltip}</div></div>`;
+		const id = `goto-${idPrefix}-${index}`;
+		return `<div class="highlight ${colorClass}" id="${id}">${highlight}<div>${tooltip}</div></div>`;
 	}
 
 	formatValueByType(chunk, option)
@@ -257,7 +280,7 @@ class CNABHandler
 				tooltip.remove();
 				div.onmouseenter = (element) => onMouseEnter(element, tooltip.innerHTML);
 			}
-			div.onmouseup = onLeftClick;
+			div.onmouseup = onClick;
 			div.onmouseleave = onMouseLeave;
 		}
 	}

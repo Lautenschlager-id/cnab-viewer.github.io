@@ -30,6 +30,7 @@ export default function Index()
 					field={CNABField}
 					innerRef={inputHeaderRef}
 					srcHandler={renderCbk}
+					fieldPrefix="h"
 				/>
 
 				<FieldController
@@ -37,6 +38,7 @@ export default function Index()
 					field={CNABField}
 					innerRef={inputContentRef}
 					srcHandler={renderCbk}
+					fieldPrefix="c"
 				/>
 
 				<FieldController
@@ -44,6 +46,7 @@ export default function Index()
 					field={CNABField}
 					innerRef={inputTrailerRef}
 					srcHandler={renderCbk}
+					fieldPrefix="t"
 				/>
 
 				<EditableHTMLDisplayer

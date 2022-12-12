@@ -23,6 +23,8 @@ export default function CustomSelect(props)
 	return (
 		<select
 			ref={props.innerRef}
+			className={props.isCNABField ? "field" : ""}
+			onChange={props.srcHandler}
 		>
 			{options}
 		</select>

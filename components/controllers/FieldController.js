@@ -5,7 +5,8 @@ import Container from "./Container";
 function getBaseComponent(props, index = 1)
 {
 	return {
-		key: index
+		key: index,
+		srcHandler: props.srcHandler,
 	};
 }
 
@@ -37,6 +38,7 @@ function remChildren(setChildren)
 export default function FieldController(props)
 {
 	const [ children, setChildren ] = useState([ getBaseComponent(props) ]);
+	useEffect(props.srcHandler, [ children ]);
 
 	return (
 		<Container

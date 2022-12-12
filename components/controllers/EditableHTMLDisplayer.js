@@ -13,7 +13,7 @@ function shareScrollState(element)
 	sibling.scrollTop = element.scrollTop;
 }
 
-function processInput(element)
+function processInput(props, element)
 {
 	element = element.target;
 
@@ -22,9 +22,9 @@ function processInput(element)
 		.replace(/\r\n|\n|\r/g, "\n")
 		.replace(/^\n+/g, "");
 
-	element.previousElementSibling.innerHTML = element.value
-		.replace(/\t/g, "&nbsp;")
-		.replace(/\n/g, "<br>");
+	expandTextAreaHeight(element);
+
+	props.srcHandler(null, element.value);
 }
 
 export default function EditableHTMLDisplayer(props)
@@ -39,9 +39,9 @@ export default function EditableHTMLDisplayer(props)
 			<textarea
 				className="editable"
 				spellCheck="false"
+				onInput={(element) => processInput(props, element)}
 				onScroll={shareScrollState}
 				placeholder="Cole seu CNAB here"
-					onInput={(element) => processInput(element)}
 			/>
 		</div>
 	);

@@ -1,0 +1,28 @@
+.highlight {
+	display: initial;
+	position: relative;
+}
+
+.highlight:nth-child(even) {
+	background: rgba(0, 122, 204, .6);
+}
+.highlight:nth-child(odd) {
+	background: rgba(165, 73, 184, .6);
+}
+
+.highlight:hover {
+	cursor: pointer;
+}
+.highlight:nth-child(even):hover {
+	background: rgba(0, 122, 204, 1);
+}
+.highlight:nth-child(odd):hover {
+	background: rgba(165, 73, 184, 1);
+}
+
+.highlight.invalid {
+	background: rgba(200, 10, 10, .6);
+}
+.highlight.invalid:hover {
+	background: rgba(200, 10, 10, 1);
+}

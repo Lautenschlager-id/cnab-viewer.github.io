@@ -22,6 +22,17 @@ function updateInputValue(value, setValue, step, props)
 export default function CustomSelectNumber(props)
 {
 	const [ value, setValue ] = useState(props.value || props.min || 1);
+	const [ hasSkippedEffect, setHasSkippedEffect ] = useState(false);
+
+	useEffect(() => {
+		// Without this chunk, cnab.process is spammed by N component times.
+		if (!hasSkippedEffect)
+		{
+			setHasSkippedEffect(true);
+			return;
+		}
+		props.srcHandler();
+	}, [ value ]);
 
 	return (
 		<div className="flex">
@@ -32,6 +43,7 @@ export default function CustomSelectNumber(props)
 				max={props.max}
 				value={value}
 				onInput={(e) => updateInputValue(e.target.value, setValue, 0, props)}
+				className={props.isCNABField ? "field" : ""}
 			/>
 			<div className="quantity">
 				<button

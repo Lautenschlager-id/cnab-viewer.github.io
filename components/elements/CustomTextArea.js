@@ -9,6 +9,8 @@ export default function CustomTextArea(props)
 				placeholder={props.placeholder}
 				spellCheck="false"
 				style={{width: props.width}}
+				className={props.isCNABField ? "field" : ""}
+				onInput={props.srcHandler}
 			/>
 		</>
 	);

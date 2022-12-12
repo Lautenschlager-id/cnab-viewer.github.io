@@ -24,25 +24,32 @@ function processInput(props, element)
 
 	expandTextAreaHeight(element);
 
+	element.parentElement.previousElementSibling
+		.classList.replace("tooltip-hover", "tooltip-unhover");
+
+	// Updates text and adds highlighting
 	props.srcHandler(null, element.value);
 }
 
 export default function EditableHTMLDisplayer(props)
 {
 	return (
-		<div className="container sub-container overlay">
-			<div
-				ref={props.innerRef}
-				className="displayer"
-				onScroll={shareScrollState}
-			/>
-			<textarea
-				className="editable"
-				spellCheck="false"
-				onInput={(element) => processInput(props, element)}
-				onScroll={shareScrollState}
-				placeholder="Cole seu CNAB here"
-			/>
-		</div>
+		<>
+			<div id="tooltip" className="tooltip tooltip-unhover" />
+			<div className="container sub-container overlay">
+				<div
+					ref={props.innerRef}
+					className="displayer"
+					onScroll={shareScrollState}
+				/>
+				<textarea
+					className="editable"
+					spellCheck="false"
+					onInput={(element) => processInput(props, element)}
+					onScroll={shareScrollState}
+					placeholder="Cole seu CNAB here"
+				/>
+			</div>
+		</>
 	);
 }

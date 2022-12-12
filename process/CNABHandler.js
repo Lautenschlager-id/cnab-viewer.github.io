@@ -1,6 +1,48 @@
 import {
-	tokenizeUnsafeHTML, escapeTokenizedHTML, tokens
+	tokenizeUnsafeHTML, escapeTokenizedHTML, tokens,
+	downloadTmpFile
 } from "../process/helpers";
+
+function onLeftClick(element)
+{
+	element = element.target;
+
+	// Copy highlighted content (chunk)
+	navigator.clipboard.writeText(element.innerText);
+
+	if (window.getSelection)
+		window.getSelection().removeAllRanges();
+	else if (document.selection)
+		document.selection.empty();
+}
+
+function onMouseEnter(element, content)
+{
+	const highlightRectangle = element.target.getBoundingClientRect();
+
+	const tooltip = document.getElementById("tooltip");
+	tooltip.innerHTML = content;
+	tooltip.classList.replace("tooltip-unhover", "tooltip-hover");
+
+	const tooltipTectangle = tooltip.getBoundingClientRect();
+	tooltip.style.left = `${
+		Math.max(0,
+			highlightRectangle.x + window.scrollX
+			- tooltipTectangle.width / 2
+			+ highlightRectangle.width / 2
+		)
+	}px`;
+	tooltip.style.top = `${
+		highlightRectangle.y + window.scrollY
+		- tooltipTectangle.height
+	}px`;
+}
+
+function onMouseLeave(element)
+{
+	const tooltip = document.getElementById("tooltip");
+	tooltip.classList.replace("tooltip-hover", "tooltip-unhover");
+}
 
 class CNABHandler
 {
@@ -76,7 +118,15 @@ class CNABHandler
 
 	highlight(highlight, option, index, chunkValidation, idPrefix)
 	{
-		return `<div class="highlight ">${highlight}</div>`;
+		let tooltip = `#${index} | ${option.escapedName}&lt;${option.type}> | len(${option.length})\n`;
+
+		tooltip += `\nValue:\n<div class="highlight tooltip-text">${highlight}</div>`;
+		if (chunkValidation.error)
+			tooltip += `\n\nError:\n<div class="highlight invalid">${chunkValidation.error}</div>`;
+
+		const colorClass = !chunkValidation.isValid ? "invalid" : "";
+
+		return `<div class="highlight ${colorClass}" >${highlight}<div>${tooltip}</div></div>`;
 	}
 
 	formatValueByType(chunk, option)
@@ -197,6 +247,21 @@ class CNABHandler
 		return newChunk;
 	}
 
+	bindEventsToAllHighlights()
+	{
+		for (let div of document.getElementsByClassName("highlight"))
+		{
+			let tooltip = div.lastChild;
+			if (tooltip)
+			{
+				tooltip.remove();
+				div.onmouseenter = (element) => onMouseEnter(element, tooltip.innerHTML);
+			}
+			div.onmouseup = onLeftClick;
+			div.onmouseleave = onMouseLeave;
+		}
+	}
+
 	process(_, textareaContent)
 	{
 		if (textareaContent !== undefined)
@@ -219,6 +284,8 @@ class CNABHandler
 		const trailer = this.processChunk(this.cnabLines.trailer, this.retrievedTrailerData, "t");
 
 		this.cnabContent.innerHTML = this.rebuildCNAB(header, content, trailer);
+
+		this.bindEventsToAllHighlights();
 	}
 }
 

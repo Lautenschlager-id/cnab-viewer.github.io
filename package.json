@@ -1,15 +1,13 @@
 {
   "name": "cnab-viewer",
   "version": "0.1.0",
-  "homepage": "https://lautenschlager-id.github.io/cnab-viewer.github.io",
+  "homepage": "https://lautenschlager-id.github.io/cnab-viewer.github.io/",
   "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d .next"
+    "lint": "next lint"
   },
   "dependencies": {
     "next": "12.3.1",
@@ -18,7 +16,6 @@
   },
   "devDependencies": {
     "eslint": "8.26.0",
-    "eslint-config-next": "12.3.1",
-    "gh-pages": "^4.0.0"
+    "eslint-config-next": "12.3.1"
   }
 }

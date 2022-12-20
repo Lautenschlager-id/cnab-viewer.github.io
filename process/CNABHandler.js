@@ -140,11 +140,14 @@ class CNABHandler
 
 	highlight(highlight, option, index, chunkValidation, idPrefix)
 	{
-		let tooltip = `#${index} | ${option.escapedName}&lt;${option.type}> | len(${option.length})\n`;
-
-		tooltip += `\nValue:\n<div class="highlight tooltip-text">${highlight}</div>`;
+		let tooltip =
+			`Posição: <b>#${index}</b>\n\n`
+			+ (option.escapedName ? `Nome: <b>${option.escapedName}</b>\n` : '')
+			+ `Tipo: <b>${option.type}</b>\n`
+			+ `Tamanho: <b>${option.length}</b>\n`
+			+ `\nValor:\n<div class="highlight tooltip-text">${highlight}</div>`;
 		if (chunkValidation.error)
-			tooltip += `\n\nError:\n<div class="highlight invalid">${chunkValidation.error}</div>`;
+			tooltip += `\n\nErro:\n<div class="highlight invalid">${chunkValidation.error}</div>`;
 
 		const colorClass = !chunkValidation.isValid ? "invalid" : "";
 

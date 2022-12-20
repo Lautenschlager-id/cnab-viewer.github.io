@@ -1,12 +1,18 @@
+.container input[type=number]::inner-spin-button,
+.container input[type=number]::outer-spin-button,
 .container input[type=number]::-webkit-inner-spin-button,
 .container input[type=number]::-webkit-outer-spin-button {
+	appearance: none;
 	-webkit-appearance: none;
+	-moz-appearance: none;
 	margin: 0;
 }
 
 .container input[type=number] {
 	float: left;
 	width: -webkit-fill-available;
+	width: -moz-available;
+	-moz-appearance: textfield;
 }
 
 .container .quantity {

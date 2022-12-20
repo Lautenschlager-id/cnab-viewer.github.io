@@ -79,7 +79,7 @@ export default function EditableHTMLDisplayer(props)
 					spellCheck="false"
 					onInput={(element) => processInput(props, element)}
 					onScroll={shareScrollState}
-					placeholder="Cole seu CNAB here"
+					placeholder="Cole seu CNAB aqui"
 				/>
 			</div>
 			<FileInput

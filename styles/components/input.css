@@ -1,5 +1,3 @@
-.container input[type=number]::inner-spin-button,
-.container input[type=number]::outer-spin-button,
 .container input[type=number]::-webkit-inner-spin-button,
 .container input[type=number]::-webkit-outer-spin-button {
 	appearance: none;

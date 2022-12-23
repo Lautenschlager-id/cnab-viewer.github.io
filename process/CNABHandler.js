@@ -140,18 +140,24 @@ class CNABHandler
 
 	highlight(highlight, option, index, chunkValidation, idPrefix)
 	{
-		let tooltip =
-			`Posição: <b>#${index}</b>\n\n`
-			+ (option.escapedName ? `Nome: <b>${option.escapedName}</b>\n` : '')
-			+ `Tipo: <b>${option.type}</b>\n`
-			+ `Tamanho: <b>${option.length}</b>\n`
-			+ `\nValor:\n<div class="highlight tooltip-text">${highlight}</div>`;
-		if (chunkValidation.error)
+		let tooltip = '',
+			id = '';
+
+		if (option)
+		{
+			tooltip = `Posição: <b>#${index}</b>\n\n`
+				+ (option.escapedName ? `Nome: <b>${option.escapedName}</b>\n` : '')
+				+ `Tipo: <b>${option.type}</b>\n`
+				+ `Tamanho: <b>${option.length}</b>\n`
+
+			id = `goto-${idPrefix}-${index}`;
+		}
+
+		tooltip += `\nValor:\n<div class="highlight tooltip-text">${highlight}</div>`;
+		if (!chunkValidation.isValid)
 			tooltip += `\n\nErro:\n<div class="highlight invalid">${chunkValidation.error}</div>`;
 
 		const colorClass = !chunkValidation.isValid ? "invalid" : "";
-
-		const id = `goto-${idPrefix}-${index}`;
 		return `<div class="highlight ${colorClass}" id="${id}">${highlight}<div>${tooltip}</div></div>`;
 	}
 
@@ -184,8 +190,19 @@ class CNABHandler
 		return chunk;
 	}
 
-	validateChunk(chunk, option)
+	validateChunk(chunk, option, lineLength = null)
 	{
+		let isValid;
+		if (!option)
+		{
+			isValid = lineLength <= 0;
+			return {
+				isValid: isValid,
+				error: !isValid ? `Trecho de '${lineLength}' caracteres sem especificação de campo`
+				: undefined
+			};
+		}
+
 		try
 		{
 			chunk = this.formatValueByType(chunk, option);
@@ -202,7 +219,6 @@ class CNABHandler
 			escapedValue: optEscapedValue,
 			length: optLength
 		} = option;
-		let isValid;
 
 		if (optEscapedValue)
 		{
@@ -223,6 +239,10 @@ class CNABHandler
 				!isValid ? `Valor tem tamanho '${chunk.length}', mas esperava '${optLength}'`
 				: undefined
 			),
+			content: (
+				chunk.length == 0 ? tokens[" "]
+				: chunk
+			),
 		};
 	}
 
@@ -234,11 +254,12 @@ class CNABHandler
 
 		for (let line = 0; line < chunk.length; line++)
 		{
-			let lineContent = chunk[line],
-				lineIndex = 0;
+			let lineContent = chunk[line];
+			let lineLength = lineContent?.length;
+			let lineIndex = 0;
 
 			newChunk[line] = lineContent;
-			if (!lineContent || lineContent.length == 0 || stopProcessing)
+			if (!lineContent || lineLength == 0 || stopProcessing)
 				continue;
 
 			let chunkValidation;
@@ -247,11 +268,14 @@ class CNABHandler
 				let option = options[optionIndex],
 					nextLineIndex = lineIndex + option.length;
 
+				lineLength -= option.length;
+
 				let prefix = lineContent.slice(0, lineIndex),
 					highlight = lineContent.slice(lineIndex, nextLineIndex),
 					suffix = lineContent.slice(nextLineIndex);
 
 				chunkValidation = this.validateChunk(highlight, option);
+				highlight = chunkValidation.content ?? highlight;
 
 				let lengthBeforeHighlight = highlight.length;
 				highlight = this.highlight(highlight, option, optionIndex + 1, chunkValidation,
@@ -260,14 +284,28 @@ class CNABHandler
 
 				lineContent = `${prefix}${highlight}${suffix}`;
 
-				if (chunkValidation.error)
+				if (!chunkValidation.isValid)
 					break;
 			}
 
 			newChunk[line] = lineContent;
 
-			if (chunkValidation.error)
+			if (!chunkValidation.isValid)
+			{
 				stopProcessing = true;
+				continue;
+			}
+
+			if (lineLength > 0)
+			{
+				let prefix = lineContent.slice(0, lineIndex),
+					highlight = lineContent.slice(lineIndex);
+
+				chunkValidation = this.validateChunk(highlight, null, lineLength);
+				highlight = this.highlight(highlight, null, null, chunkValidation);
+
+				newChunk[line] = `${prefix}${highlight}`;
+			}
 		}
 
 		return newChunk;
@@ -283,8 +321,10 @@ class CNABHandler
 				tooltip.remove();
 				div.onmouseenter = (element) => onMouseEnter(element, tooltip.innerHTML);
 			}
-			div.onmouseup = onClick;
 			div.onmouseleave = onMouseLeave;
+
+			if (div.id)
+				div.onmouseup = onClick;
 		}
 	}
 
